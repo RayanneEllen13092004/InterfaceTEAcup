@@ -1,0 +1,679 @@
+// Arquivo: index.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAcup - Um gole de apoio para cada dia no espectro</title>
+    <style>
+        * {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+body {
+    background-color: #f0f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(120deg, #e0f7fa 0%, #bbdefb 100%);
+}
+
+        .container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    height: 550px;
+}
+
+        .left-panel {
+    background-color: #5fa8d3;
+    flex: 1;
+    padding: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+        .logo-container {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+}
+
+        .brand-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+        .illustration {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+        .slogan {
+    text-align: center;
+    font-style: italic;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+        .login-form {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 28px;
+}
+
+        .error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: none;
+}
+
+        .input-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+        .input-group label {
+display: block;
+color: #666;
+margin-bottom: 8px;
+font-size: 14px;
+        }
+
+                .input-group input {
+width: 100%;
+padding: 12px 15px;
+border: 1px solid #ddd;
+border-radius: 8px;
+font-size: 16px;
+transition: border 0.3s;
+        }
+
+                .input-group input:focus {
+    border-color: #5fa8d3;
+    outline: none;
+}
+
+        .forgot-password {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+        .forgot-password a {
+color: #5fa8d3;
+text-decoration: none;
+font-size: 14px;
+        }
+
+                .forgot-password a:hover {
+    text-decoration: underline;
+}
+
+        .login-btn {
+    background-color: #5fa8d3;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+        .login-btn:hover {
+    background-color: #4a86a8;
+}
+
+        .register-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+        .register-link a {
+color: #5fa8d3;
+text-decoration: none;
+font-weight: bold;
+        }
+
+                .register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para o ícone da xícara */
+        .tea-cup {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin-right: 10px;
+}
+
+        .cup {
+    width: 30px;
+    height: 20px;
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+    position: relative;
+    margin: 0 auto;
+}
+
+        .handle {
+    width: 10px;
+    height: 15px;
+    border: 3px solid white;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    right: -10px;
+    top: 3px;
+}
+
+        .saucer {
+    width: 40px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 3px auto 0;
+}
+
+@media (max-width: 768px) {
+        .container {
+    flex-direction: column;
+    height: auto;
+}
+            
+            .left-panel {
+    padding: 20px;
+    min-height: 200px;
+}
+            
+            .login-form {
+    padding: 30px;
+}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo-container">
+                <div class="tea-cup">
+                    <div class="cup">
+                        <div class="handle"></div>
+                    </div>
+                    <div class="saucer"></div>
+                </div>
+                <span class="brand-name">TEAcup</span>
+            </div>
+            
+            <div class="illustration">
+                <svg width="200" height="150" viewBox="0 0 200 150">
+                    <circle cx="100" cy="75" r="40" fill="#fff" opacity="0.6"/>
+                    <path d="M75,60 C90,40 110,40 125,60 S140,90 125,100 S90,110 75,100 S60,80 75,60" fill="#fff" opacity="0.4"/>
+                </svg>
+            </div>
+            
+            <p class="slogan">Um gole de apoio para cada dia no espectro.</p>
+        </div>
+        
+        <div class="login-form">
+            <h2>Bem-vindo(a) de volta</h2>
+            
+            <div id="errorMessage" class="error-message">
+Nome de usuário ou senha inválidos!
+            </div>
+            
+            <form id="loginForm" action="login" method="post">
+                <div class="input-group">
+                    <label for="username">Nome de usuário</label>
+                    <input type="text" id="username" name="username" required placeholder="Seu nome de usuário">
+        </div>
+
+        <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required placeholder="Sua senha">
+        </div>
+
+        <div class="forgot-password">
+                    <a href="#">Esqueceu sua senha?</a>
+                </div>
+                
+                <button type="submit" class="login-btn">Entrar</button>
+                
+                <div class="register-link">
+Ainda não tem conta? <a href="register.html">Cadastre-se</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <script>
+        // Script para integrar com o backend Java
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Dados do formulário
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+    // Envia para o servlet
+    fetch('login', {
+            method: 'POST',
+            headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+            })
+            .then(response => {
+    if (response.redirected) {
+        // Login bem-sucedido - redirecionado para a página de boas-vindas
+        window.location.href = response.url;
+    } else {
+        // Exibe mensagem de erro
+        return response.text().then(text => {
+                document.getElementById('errorMessage').style.display = 'block';
+        throw new Error('Login falhou');
+                    });
+    }
+            })
+            .catch(error => {
+            console.error('Erro:', error);
+            });
+});
+    </script>
+</body>
+</html>
+
+// Arquivo: LoginServlet.java
+        import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        // Simples validação de usuário (em um sistema real, você usaria banco de dados)
+        if ("admin".equals(username) && "password123".equals(password)) {
+            // Cria a sessão
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+            session.setMaxInactiveInterval(30*60); // 30 minutos
+
+            // Redireciona para a página de boas-vindas
+            response.sendRedirect("welcome.html");
+        } else {
+            // Retorna status 401 para indicar falha de autenticação
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Falha no login");
+        }
+    }
+}
+
+// Arquivo: welcome.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAcup - Bem-vindo</title>
+    <style>
+        * {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+body {
+    background-color: #f0f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(120deg, #e0f7fa 0%, #bbdefb 100%);
+}
+
+        .welcome-container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 600px;
+}
+
+        .welcome-header {
+    background-color: #5fa8d3;
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+        .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+        .brand-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+        .user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+        .logout-btn {
+    background-color: white;
+    color: #5fa8d3;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+        .logout-btn:hover {
+    background-color: #f5f5f5;
+}
+
+        .welcome-content {
+    padding: 40px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+        .welcome-message {
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+        .content-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+        .dashboard-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+        .dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+        .dashboard-card h3 {
+color: #5fa8d3;
+margin-bottom: 10px;
+        }
+
+                .dashboard-card p {
+color: #777;
+font-size: 14px;
+line-height: 1.5;
+        }
+
+        /* Estilo para o ícone da xícara */
+        .tea-cup {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin-right: 10px;
+}
+
+        .cup {
+    width: 30px;
+    height: 20px;
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+    position: relative;
+    margin: 0 auto;
+}
+
+        .handle {
+    width: 10px;
+    height: 15px;
+    border: 3px solid white;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    right: -10px;
+    top: 3px;
+}
+
+        .saucer {
+    width: 40px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 3px auto 0;
+}
+
+@media (max-width: 768px) {
+        .welcome-header {
+    flex-direction: column;
+    gap: 20px;
+}
+
+            .content-dashboard {
+    grid-template-columns: 1fr;
+}
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-header">
+            <div class="logo-container">
+                <div class="tea-cup">
+                    <div class="cup">
+                        <div class="handle"></div>
+                    </div>
+                    <div class="saucer"></div>
+                </div>
+                <span class="brand-name">TEAcup</span>
+            </div>
+            <div class="user-info">
+                <p>Olá, <span id="userDisplay">Usuário</span>!</p>
+                <a href="#" class="logout-btn" id="logoutBtn">Sair</a>
+            </div>
+        </div>
+        
+        <div class="welcome-content">
+            <h1>Bem-vindo(a) ao TEAcup</h1>
+            <p class="welcome-message">Um espaço seguro e acolhedor para você encontrar apoio e recursos.</p>
+            
+            <div class="content-dashboard">
+                <div class="dashboard-card">
+<h3>Recursos Educacionais</h3>
+<p>Acesse nossos materiais cuidadosamente selecionados para auxiliar no desenvolvimento e aprendizagem.</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Comunidade</h3>
+                    <p>Conecte-se com outras famílias e profissionais que estão na mesma jornada.</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Agenda</h3>
+<p>Organize suas consultas, terapias e atividades em um só lugar.</p>
+                </div>
+                <div class="dashboard-card">
+<h3>Diário de Progresso</h3>
+<p>Registre e acompanhe o desenvolvimento e conquistas diárias.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+        // Verifica se o usuário está logado
+        window.addEventListener('load', function() {
+    fetch('checkSession')
+            .then(response => {
+    if (!response.ok) {
+        window.location.href = 'index.html';
+    } else {
+        return response.json();
+    }
+                })
+                .then(data => {
+    if (data && data.username) {
+        document.getElementById('userDisplay').textContent = data.username;
+    }
+                })
+                .catch(error => {
+            console.error('Erro:', error);
+    window.location.href = 'index.html';
+                });
+});
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    fetch('logout', {
+            method: 'POST'
+            })
+            .then(() => {
+            window.location.href = 'index.html';
+            })
+            .catch(error => {
+            console.error('Erro ao fazer logout:', error);
+            });
+});
+    </script>
+</body>
+</html>
+
+// Arquivo: CheckSessionServlet.java
+        import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/checkSession")
+public class CheckSessionServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+
+        if (session != null && session.getAttribute("username") != null) {
+            String username = (String) session.getAttribute("username");
+            out.print("{\"username\":\"" + username + "\"}");
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            out.print("{\"error\":\"Não autenticado\"}");
+        }
+    }
+}
+
+// Arquivo: LogoutServlet.java
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+}
+
+// Arquivo: web.xml (para configuração do servlet)
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+version="4.0">
+
+    <display-name>TEAcup - Plataforma de Apoio</display-name>
+    
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
+</web-app>

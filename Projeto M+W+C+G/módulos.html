@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Conteúdo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        header {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #1a237e;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .module {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .module:hover {
+            transform: translateY(-5px);
+        }
+        
+        .module h2 {
+            margin-bottom: 15px;
+            color: #1a237e;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        
+        /* Módulo de Artigos Científicos */
+        .scientific-articles {
+            grid-column: span 2;
+        }
+        
+        .article {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .article:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .article h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #303f9f;
+        }
+        
+        .article .authors {
+            font-size: 14px;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .article .abstract {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .article .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .article .tag {
+            background-color: #e8eaf6;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #3949ab;
+        }
+        
+        /* Módulo de Conto do Dia */
+        .daily-story {
+            background-color: #fff8e1;
+        }
+        
+        .daily-story h3 {
+            color: #ff6f00;
+            margin-bottom: 10px;
+        }
+        
+        .daily-story .author {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .daily-story .story-preview {
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .daily-story .read-more {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #ff6f00;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .daily-story .read-more:hover {
+            background-color: #f57c00;
+        }
+        
+        /* Módulo de Vídeo */
+        .video-module {
+            grid-column: span 1;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .video-description {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Módulo de Mini Calendário */
+        .mini-calendar {
+            background-color: #e3f2fd;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .month-year {
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        
+        .nav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1976d2;
+        }
+        
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #0d47a1;
+        }
+        
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-gap: 5px;
+            text-align: center;
+        }
+        
+        .day {
+            padding: 8px 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .day:hover {
+            background-color: #bbdefb;
+        }
+        
+        .today {
+            background-color: #1976d2;
+            color: white;
+        }
+        
+        .other-month {
+            color: #bdbdbd;
+        }
+        
+        .event {
+            position: relative;
+        }
+        
+        .event::after {
+            content: "";
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #f44336;
+        }
+        
+        .upcoming-events {
+            margin-top: 15px;
+        }
+        
+        .upcoming-events h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #0d47a1;
+        }
+        
+        .event-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .event-item .date {
+            font-weight: bold;
+            color: #1976d2;
+        }
+        
+        @media (max-width: 800px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .scientific-articles {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Portal de Conteúdo</h1>
+            <p>Artigos científicos, contos e muito mais</p>
+        </header>
+        
+        <!-- Módulo de Artigos Científicos -->
+        <section class="module scientific-articles">
+            <h2>Artigos Científicos</h2>
+            
+            <div class="article">
+                <h3>Avanços na Inteligência Artificial Generativa: Um Panorama Atual</h3>
+                <div class="authors">Silva, M.A.; Oliveira, J.P.; Santos, C.R.</div>
+                <div class="abstract">Este artigo apresenta uma revisão abrangente dos recentes avanços em modelos de IA generativa, com foco em arquiteturas de transformers e suas aplicações em processamento de linguagem natural e geração de imagens.</div>
+                <div class="tags">
+                    <span class="tag">Inteligência Artificial</span>
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">NLP</span>
+                </div>
+            </div>
+            
+            <div class="article">
+                <h3>Impactos das Mudanças Climáticas na Biodiversidade Marinha do Atlântico Sul</h3>
+                <div class="authors">Costa, R.B.; Almeida, F.T.; Pereira, A.M.</div>
+                <div class="abstract">Uma análise dos efeitos do aquecimento global e acidificação dos oceanos nas comunidades de corais e peixes recifais da costa brasileira, com base em dados coletados entre 2010 e 2023.</div>
+                <div class="tags">
+                    <span class="tag">Ecologia</span>
+                    <span class="tag">Mudanças Climáticas</span>
+                    <span class="tag">Biodiversidade</span>
+                </div>
+            </div>
+            
+            <div class="article">
+                <h3>Aplicações Terapêuticas de Nanopartículas no Tratamento do Câncer</h3>
+                <div class="authors">Rodrigues, T.S.; Fernandes, L.C.; Mendes, D.A.</div>
+                <div class="abstract">Este estudo analisa os avanços recentes no uso de nanopartículas para entrega dirigida de fármacos em tumores, destacando resultados promissores em testes clínicos de fase II.</div>
+                <div class="tags">
+                    <span class="tag">Nanotecnologia</span>
+                    <span class="tag">Oncologia</span>
+                    <span class="tag">Biomedicina</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Módulo de Conto do Dia -->
+        <section class="module daily-story">
+            <h2>Conto do Dia</h2>
+            <h3>O Sussurro das Ondas</h3>
+            <div class="author">Por Carlos Drummond</div>
+            <div class="story-preview">
+                Marina sempre voltava àquela praia. Não era a mais bonita, nem a mais famosa, mas guardava segredos que só ela conhecia. Quando criança, seu avô lhe contara sobre o sussurro das ondas – não o som normal das águas batendo nas rochas, mas um murmúrio especial que acontecia apenas três vezes por ano, quando a lua cheia de verão tocava o horizonte exatamente às seis da tarde...
+            </div>
+            <a href="#" class="read-more">Continuar lendo</a>
+        </section>
+        
+        <!-- Módulo de Vídeo -->
+        <section class="module video-module">
+            <h2>Vídeo em Destaque</h2>
+            <div class="video-container">
+                <iframe src="/api/placeholder/400/320" alt="placeholder"></iframe>
+            </div>
+            <h3 class="video-title">Explorando as Profundezas Marinhas</h3>
+            <p class="video-description">Neste fascinante documentário, acompanhe cientistas em uma expedição às profundezas do oceano, descobrindo espécies nunca antes vistas pelo ser humano.</p>
+        </section>
+        
+        <!-- Módulo de Mini Calendário -->
+        <section class="module mini-calendar">
+            <h2>Calendário de Eventos</h2>
+            
+            <div class="calendar-header">
+                <button class="nav-btn">&#9664;</button>
+                <div class="month-year">Abril 2025</div>
+                <button class="nav-btn">&#9654;</button>
+            </div>
+            
+            <div class="weekdays">
+                <div>D</div>
+                <div>S</div>
+                <div>T</div>
+                <div>Q</div>
+                <div>Q</div>
+                <div>S</div>
+                <div>S</div>
+            </div>
+            
+            <div class="days">
+                <div class="day other-month">30</div>
+                <div class="day other-month">31</div>
+                <div class="day">1</div>
+                <div class="day">2</div>
+                <div class="day">3</div>
+                <div class="day today">4</div>
+                <div class="day">5</div>
+                <div class="day">6</div>
+                <div class="day event">7</div>
+                <div class="day">8</div>
+                <div class="day">9</div>
+                <div class="day event">10</div>
+                <div class="day">11</div>
+                <div class="day">12</div>
+                <div class="day">13</div>
+                <div class="day">14</div>
+                <div class="day">15</div>
+                <div class="day event">16</div>
+                <div class="day">17</div>
+                <div class="day">18</div>
+                <div class="day">19</div>
+                <div class="day">20</div>
+                <div class="day">21</div>
+                <div class="day">22</div>
+                <div class="day">23</div>
+                <div class="day">24</div>
+                <div class="day">25</div>
+                <div class="day">26</div>
+                <div class="day">27</div>
+                <div class="day">28</div>
+                <div class="day">29</div>
+                <div class="day">30</div>
+                <div class="day other-month">1</div>
+                <div class="day other-month">2</div>
+                <div class="day other-month">3</div>
+            </div>
+            
+            <div class="upcoming-events">
+                <h3>Próximos Eventos</h3>
+                <div class="event-item">
+                    <span class="date">07/04:</span> Simpósio de Astrofísica
+                </div>
+                <div class="event-item">
+                    <span class="date">10/04:</span> Lançamento de livro - Biblioteca Central
+                </div>
+                <div class="event-item">
+                    <span class="date">16/04:</span> Palestra: "Futuro da Medicina"
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

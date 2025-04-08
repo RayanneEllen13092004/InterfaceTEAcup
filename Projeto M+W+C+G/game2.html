@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Pães - Sistema de Gamificação</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff5e6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #5c4b32;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #c87137;
+            margin-bottom: 20px;
+        }
+
+        .tasks {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #f0e0d0;
+        }
+
+        .task input[type="checkbox"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .task label {
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        .bread-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            gap: 25px;
+        }
+
+        .mini-bread {
+            width: 60px;
+            height: 60px;
+            background-color: #e0e0e0;
+            border-radius: 30px 30px 15px 15px;
+            position: relative;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+        }
+
+        .mini-bread::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            width: 8px;
+            height: 8px;
+            background-color: #c87137;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .mini-bread::after {
+            content: "";
+            position: absolute;
+            top: 30px;
+            left: 35px;
+            width: 10px;
+            height: 10px;
+            background-color: #c87137;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .mini-bread.earned {
+            background-color: #f8cb86;
+            opacity: 1;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(200, 113, 55, 0.3);
+        }
+
+        .mini-bread.earned::before,
+        .mini-bread.earned::after {
+            background-color: #8b4513;
+        }
+
+        .reset-btn {
+            background-color: #c87137;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .reset-btn:hover {
+            background-color: #a45a2a;
+        }
+
+        .progress {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #c87137;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Missão Pãozinho</h1>
+        <p>Complete atividades diárias para ganhar mini pães!</p>
+        
+        <div class="bread-container">
+            <div class="mini-bread" id="bread1"></div>
+            <div class="mini-bread" id="bread2"></div>
+            <div class="mini-bread" id="bread3"></div>
+        </div>
+        
+        <div class="progress" id="progress">0/3 pães conquistados</div>
+        
+        <div class="tasks">
+            <div class="task">
+                <input type="checkbox" id="task1" onchange="updateBreads()">
+                <label for="task1">Completar exercício físico</label>
+            </div>
+            <div class="task">
+                <input type="checkbox" id="task2" onchange="updateBreads()">
+                <label for="task2">Beber 2L de água</label>
+            </div>
+            <div class="task">
+                <input type="checkbox" id="task3" onchange="updateBreads()">
+                <label for="task3">Ler por 30 minutos</label>
+            </div>
+        </div>
+        
+        <button class="reset-btn" onclick="resetTasks()">Reiniciar</button>
+    </div>
+
+    <script>
+        function updateBreads() {
+            let count = 0;
+            
+            if (document.getElementById('task1').checked) count++;
+            if (document.getElementById('task2').checked) count++;
+            if (document.getElementById('task3').checked) count++;
+            
+            // Update bread visuals
+            for (let i = 1; i <= 3; i++) {
+                const bread = document.getElementById('bread' + i);
+                if (i <= count) {
+                    bread.classList.add('earned');
+                } else {
+                    bread.classList.remove('earned');
+                }
+            }
+            
+            // Update progress text
+            document.getElementById('progress').innerText = count + "/3 pães conquistados";
+            
+            // Save state
+            localStorage.setItem('taskState', JSON.stringify({
+                task1: document.getElementById('task1').checked,
+                task2: document.getElementById('task2').checked,
+                task3: document.getElementById('task3').checked
+            }));
+        }
+        
+        function resetTasks() {
+            document.getElementById('task1').checked = false;
+            document.getElementById('task2').checked = false;
+            document.getElementById('task3').checked = false;
+            updateBreads();
+        }
+        
+        // Load saved state on page load
+        window.onload = function() {
+            const savedState = localStorage.getItem('taskState');
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                document.getElementById('task1').checked = state.task1;
+                document.getElementById('task2').checked = state.task2;
+                document.getElementById('task3').checked = state.task3;
+                updateBreads();
+            }
+        };
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAcup - Suporte para Autismo</title>
+    <style>
+        /* PALETA DE CORES + SABORES DE CHÁ */
+        :root {
+            --cha-baunilha: #F5F5F5;      /* Fundo principal */
+            --cha-camomila: #E0DED7;       /* Fundo secundário */
+            --cha-hortela: #A8B2A6;        /* Bordas/ícones */
+            --cha-erva-doce: #A3A380;      /* Destaques suaves */
+            --cha-borragem: #B1D6E8;       /* Botão primário */
+            --cha-hibisco: #BB8588;        /* Botão secundário */
+            --cha-canela: #424242;         /* Texto */
+        }
+
+        /* ESTILOS GERAIS */
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: var(--cha-baunilha);
+            color: var(--cha-canela);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* CABEÇALHO COM LOGO */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--cha-hortela);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo-text h1 {
+            margin: 0;
+            color: var(--cha-hibisco);
+            font-size: 24px;
+        }
+
+        .logo-text p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--cha-erva-doce);
+        }
+
+        /* BOTÕES */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--cha-borragem);
+            color: var(--cha-canela);
+        }
+
+        .btn-secondary {
+            background-color: var(--cha-hibisco);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* CARD DE CONTEÚDO */
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--cha-erva-doce);
+        }
+
+        .card h3 {
+            color: var(--cha-hibisco);
+            margin-top: 0;
+        }
+
+        /* RODAPÉ */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: var(--cha-camomila);
+            color: var(--cha-canela);
+            font-size: 14px;
+        }
+
+        /* ANIMAÇÃO DE CHÁ (hover) */
+        .tea-animation {
+            transition: all 0.5s;
+        }
+
+        .tea-animation:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- CABEÇALHO -->
+        <header>
+            <div class="logo">
+                <!-- Ícone de xícara (substitua pelo seu logo) -->
+                <img src="https://via.placeholder.com/50x50/BB8588/FFFFFF?text=☕" alt="Logo TEAcup - Xícara de chá">
+                <div class="logo-text">
+                    <h1>TEAcup</h1>
+                    <p>Um gole de apoio para cada dia no espectro</p>
+                </div>
+            </div>
+            <nav>
+                <button class="btn btn-primary">Login</button>
+                <button class="btn btn-secondary">Cadastre-se</button>
+            </nav>
+        </header>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main>
+            <div class="card tea-animation">
+                <h3>Recursos para Cuidadores</h3>
+                <p>Artigos científicos, dicas práticas e guias para o dia a dia.</p>
+                <button class="btn btn-primary">Explorar</button>
+            </div>
+
+            <div class="card tea-animation">
+                <h3>Espaço para Autistas Adultos</h3>
+                <p>Compartilhe experiências e encontre recursos para vida independente.</p>
+                <button class="btn btn-secondary">Participar</button>
+            </div>
+        </main>
+
+        <!-- Cookie Button -->
+        <div class="cookie-btn" onclick="openCalmTool()">
+            <img src="cookie-icon.svg" alt="Cookie da Calma">
+            <p>Preciso de um break!</p>
+          </div>
+
+        <!-- RODAPÉ -->
+        <footer>
+            <p>TEAcup © 2023 - Acessibilidade e acolhimento em cada detalhe</p>
+        </footer>
+    </div>
+</body>
+</html>

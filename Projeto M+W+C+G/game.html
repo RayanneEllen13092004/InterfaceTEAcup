@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAcup - Pão de Mel do Progresso</title>
+    <style>
+        /* PALETA DE CORES DO PROJETO */
+        :root {
+            --cha-baunilha: #F5F5F5;
+            --cha-camomila: #E0DED7;
+            --cha-erva-doce: #A3A380;
+            --cha-hibisco: #BB8588;
+            --cha-canela: #424242;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: var(--cha-baunilha);
+            color: var(--cha-canela);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .progress-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--cha-hibisco);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--cha-erva-doce);
+            margin-bottom: 30px;
+        }
+
+        /* BARRA DE PROGRESSO ESTILIZADA COMO BANDEJA */
+        .progress-tray {
+            background-color: var(--cha-camomila);
+            border-radius: 20px;
+            height: 30px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background-color: var(--cha-erva-doce);
+            height: 100%;
+            border-radius: 20px;
+            width: 30%; /* Valor inicial - será atualizado pelo JS */
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        /* PÃES DE MEL (ÍCONES DE RECOMPENSA) */
+        .bread-rewards {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .bread {
+            width: 50px;
+            height: 50px;
+            background-color: #D8A48F; /* Cor do pão */
+            border-radius: 50% 50% 40% 40%;
+            position: relative;
+            opacity: 0.3; /* Inicia opaco e torna-se visível com progresso */
+            transition: opacity 0.3s;
+        }
+
+        .bread::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 20px;
+            height: 10px;
+            background-color: #A3A380; /* Mel */
+            border-radius: 50%;
+        }
+
+        .bread.active {
+            opacity: 1;
+            animation: bounce 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* BOTÃO DE TAREFA */
+        .task-btn {
+            background-color: var(--cha-hibisco);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+
+        .task-btn:hover {
+            transform: scale(1.05);
+            background-color: #aa7a7d;
+        }
+
+        /* MENSAGEM DE RECOMPENSA */
+        .reward-message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: var(--cha-baunilha);
+            border: 1px dashed var(--cha-erva-doce);
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="steam"></div>
+        <div class="cup">☕</div>
+      </div>
+      
+      <style>
+        .steam {
+          width: 10px;
+          height: 20px;
+          background-color: #B1D6E8;
+          border-radius: 10px;
+          animation: steam-animation 2s infinite;
+        }
+        @keyframes steam-animation {
+          0% { transform: translateY(0) scale(1); opacity: 0.5; }
+          100% { transform: translateY(-20px) scale(1.5); opacity: 0; }
+        }
+
+      </style>
+    <div class="progress-container">
+        <h1>Pão de Mel do Progresso</h1>
+        <p class="subtitle">Complete tarefas e ganhe pães de mel para desbloquear recompensas!</p>
+        
+        <!-- Barra de progresso estilizada como bandeja -->
+        <div class="progress-tray">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <!-- Pães de mel (recompensas) -->
+        <div class="bread-rewards">
+            <div class="bread" id="bread1"></div>
+            <div class="bread" id="bread2"></div>
+            <div class="bread" id="bread3"></div>
+        </div>
+        
+        <!-- Botão para simular conclusão de tarefa -->
+        <button class="task-btn" onclick="completeTask()">Concluir Tarefa Diária</button>
+        
+        <!-- Mensagem de recompensa -->
+        <div class="reward-message" id="rewardMessage">
+            🎉 <strong>Parabéns!</strong> Você ganhou um pão de mel. Continue progredindo!
+        </div>
+    </div>
+
+    <script>
+        let progress = 0;
+        const progressMax = 100;
+        const progressFill = document.getElementById('progressFill');
+        const rewardMessage = document.getElementById('rewardMessage');
+        
+        function completeTask() {
+            // Aumenta o progresso em 33% a cada tarefa concluída
+            progress += 33;
+            if (progress > progressMax) progress = progressMax;
+            
+            // Atualiza a barra de progresso
+            progressFill.style.width = `${progress}%`;
+            
+            // Ativa os pães de mel conforme o progresso
+            if (progress >= 33) document.getElementById('bread1').classList.add('active');
+            if (progress >= 66) document.getElementById('bread2').classList.add('active');
+            if (progress >= 100) document.getElementById('bread3').classList.add('active');
+            
+            // Mostra mensagem de recompensa
+            rewardMessage.style.display = 'block';
+            setTimeout(() => { rewardMessage.style.display = 'none'; }, 3000);
+            
+            // Exemplo: Desbloquear conteúdo ao atingir 100%
+            if (progress >= 100) {
+                setTimeout(() => {
+                    alert("🎊 Você desbloqueou um guia exclusivo: 'Autonomia no Espectro'!");
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
